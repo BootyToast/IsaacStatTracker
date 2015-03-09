@@ -21,8 +21,6 @@ import time
 import glob
 import re
 
-itemsToDisplay = []
-bossesToDisplay = []
 currentBossesToDisplay = []
 currentItemsToDisplay = []
 
@@ -45,7 +43,7 @@ class NewPicture:
 		self.h = h
 		self.fileLocation = fileLocation
 
-def collectFiles(player):
+def collectFiles(player, itemsToDisplay, bossesToDisplay):
 	itemFileRegex = r'(ISTData/images/items\\)(\d{1,3})(.+)$'
 	for item in player.items:
 		for fileName in glob.glob('ISTData/images/items/*'):
@@ -59,6 +57,13 @@ def collectFiles(player):
 			if boss == re.match(bossFileRegex, fileName, re.M).group(2):
 				foundBoss = NewPicture(0, 0, 64, 64, fileName)
 				bossesToDisplay.append(foundBoss)
+
+	miniBossFileRegex = r'(ISTData/images/minibosses\\)(\d{1,2})(.+)$'
+	for miniBoss in player.miniBosses:
+		for fileName in glob.glob('ISTData/images/minibosses/*'):
+			if miniBoss == re.match(miniBossFileRegex, fileName, re.M).group(2):
+				foundMiniBoss = NewPicture(0, 0, 64, 64, fileName)
+				bossesToDisplay.append(foundMiniBoss)
 
 def handleEvents():
 	events = pygame.event.get()
@@ -74,16 +79,17 @@ def handleEvents():
 			pass
 
 def displayGraphics(player):
-	global itemsToDisplay
-	global bossesToDisplay
+	itemsToDisplay = []
+	bossesToDisplay = []
 	global currentItemsToDisplay
 	global currentBossesToDisplay
 	global canvas
 
 	itemsToDisplay = []
 	bossesToDisplay = []
-	collectFiles(player)
+	collectFiles(player, itemsToDisplay, bossesToDisplay)
 
+	canvas.blit(background, (0, 0))
 	i, j = 0, 0
 	if currentItemsToDisplay != itemsToDisplay:
 		currentItemsToDisplay = itemsToDisplay
@@ -114,16 +120,7 @@ def displayGraphics(player):
 				i = 0
 				j += 64
 
-	#debug
-	print "Graphics Portion"
-	print "-------------------------"
+
 	pygame.event.pump()
-	print "About to Update Display:"
-	print "Item Instances:"
-	for item in currentItemsToDisplay:
-		print item
-	print "Boss Instances:"
-	for boss in currentBossesToDisplay:
-		print boss
 	pygame.display.update()
 	handleEvents()

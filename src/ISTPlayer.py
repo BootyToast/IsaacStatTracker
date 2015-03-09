@@ -17,26 +17,16 @@
 
 class Player:
 	def __init__(
-		self, name, pid, health, healthType, tearFireDelay, tearSpeed, tearRange, 
-		luck, movementSpeed, damageModifier, keys, bombs, coins, pillsUsed, 
-		roomsEntered, currentLevel, items, bosses
+		self, name, pid,
+		pillsUsed, roomsEntered, currentLevel,
+		items, bosses, miniBosses
 	):
 
 		self.name = name
 		self.pid = pid
-		self.health = health
-		self.healthType = healthType
-		self.tearFireDelay = tearFireDelay
-		self.tearSpeed = tearSpeed
-		self.tearRange = tearRange
-		self.luck = luck
-		self.movementSpeed = movementSpeed
-		self.damageModifier = damageModifier
-		self.keys = keys
-		self.bombs = bombs
-		self.coins = coins
 		self.pillsUsed = pillsUsed
 		self.roomsEntered = roomsEntered
 		self.currentLevel = currentLevel
 		self.items = items
 		self.bosses = bosses
+		self.miniBosses = miniBosses
