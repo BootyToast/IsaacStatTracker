@@ -6,18 +6,20 @@ Right now it's in very early stages of development. It works, but a lot of thing
 ##How To Use
 Simply plop the .exe into Documents/My Games/Binding of Isaac Rebirth
 
+##What it looks like
+![Image](http://i.imgur.com/ROyufrR.png)
+
 ##Roadmap
 - Write out text info to individual files for that streamers can use (things like the current seed, number of rooms entered, etc)
 - Figure out IDs for minibosses (have to do it by hand)
 - Clean up / abstract the code. It works but needs a bit of improvement.
 - optimize to be more memory efficient
 - Implement error checking and more robust logging.
-
 - Implement different styles for layouts, or customizable layouts.
 
 ##Issues & Testing
 The best method for submitting issues found is using [Github's tracker](https://github.com/azah/IsaacStatsTracker/issues).  
-Please submit the **log.txt** and **IsaacStatTracker.exe.log" at the time of issue, using [Pastebin](http://pastebin.com/) or a similar service.
+Please submit the **log.txt** and **IsaacStatTracker.exe.log** at the time of issue, using [Pastebin](http://pastebin.com/) or a similar service.
 
 ##Contact
 If you've got questions, would like to contribute, or would just like to talk about this program, feel free to message [@andrew_zah](https://twitter.com/) on twitter.
