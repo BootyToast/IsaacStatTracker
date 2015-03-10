@@ -67,7 +67,6 @@ def debugLog(seedValues, player):
 	print "Rooms Entered: " + str(len(player.roomsEntered))
 
 while True:
-
 	regexValues = {
 		'newGame': r'^RNG Start Seed: (.{9})(.+?)$',
 		'newPlayer': r'^(Initialized player with )(.{9})( and )(.+?)$',
@@ -78,8 +77,8 @@ while True:
 		'newLevel': r'^(.{18})(stage \d{1,3}: )(.+?)$',
 		'newRoomEntered': r'^(Room )(\S{3,4})' #^(Room )(\d{1,2}.\d{1,2})(.+?)$
 	}
-	logFile = open('log.txt', 'r')
 	seedValues = []
+	logFile = open('log.txt', 'r')
 
 	for line in logFile:
 		newGameMatches = re.match(regexValues['newGame'], line, re.M)
@@ -109,9 +108,7 @@ while True:
 		if newRoomEnteredMatches:
 			player.roomsEntered.append(newRoomEnteredMatches.group(2))
 
-	player.items = sorted(set(player.items))
+	player.items = sorted(set(player.items)) #remove duplicates
 	displayGraphics(player)
-	pygame.event.pump()
+	pygame.event.clear()
 	logFile.close()
-	debugLog(seedValues, player)
-	time.sleep(5)

@@ -70,15 +70,9 @@ def handleEvents():
 	for event in events:
 		if event.type == QUIT:
 			pygame.quit()
-			sys.exit()
-		elif event.type == KEYDOWN:
-			pass
-		elif event.type == MOUSEBUTTONUP:
-			pass
-		elif event.type == MOUSEBUTTONDOWN:
-			pass
 
 def displayGraphics(player):
+	pygame.event.clear()
 	itemsToDisplay = []
 	bossesToDisplay = []
 	global currentItemsToDisplay
@@ -121,6 +115,7 @@ def displayGraphics(player):
 				j += 64
 
 
-	pygame.event.pump()
+	
 	pygame.display.update()
+	pygame.time.wait(250)
 	handleEvents()
