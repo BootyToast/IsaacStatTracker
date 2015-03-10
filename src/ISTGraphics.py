@@ -25,7 +25,7 @@ currentBossesToDisplay = []
 currentItemsToDisplay = []
 
 pygame.init()
-canvas = pygame.display.set_mode((715,500))
+canvas = pygame.display.set_mode((1100,500))
 pygame.display.set_caption('Isaac Stat Tracker')
 	
 background = pygame.Surface(canvas.get_size())
@@ -95,7 +95,7 @@ def displayGraphics(player):
 			canvas.blit(img, (item.x + i, item.y + j))
 			
 			i += 64
-			if i > 700:
+			if i > 1100:
 				i = 0
 				j += 64
 
@@ -113,8 +113,6 @@ def displayGraphics(player):
 			if i > 700:
 				i = 0
 				j += 64
-
-
 	
 	pygame.display.update()
 	pygame.time.wait(250)

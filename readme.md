@@ -1,4 +1,4 @@
-##Isaac Stat Tracker v0.1.2
+##Isaac Stat Tracker v0.1.3
 This is a simple program to log and display data about runs in The Binding of Isaac: Rebirth. It was designed in mind for twitch streamers.  
 It tracks items (collectibles) found, bosses defeated, the current seed, and other miscellanous tidbits.  
 Right now it's in very early stages of development. It works, but a lot of things need to be cleaned up.
@@ -7,7 +7,7 @@ Right now it's in very early stages of development. It works, but a lot of thing
 Simply plop the .exe into Documents/My Games/Binding of Isaac Rebirth
 
 ##What it looks like
-![Image](http://i.imgur.com/ROyufrR.png)
+![Image](http://i.gyazo.com/c8da5ea0d3fa41cd930e851eb403644c.png)
 
 ##Roadmap
 - Write out text info to individual files for that streamers can use (things like the current seed, number of rooms entered, etc)

@@ -24,28 +24,37 @@ def createPlayer(subtype):
 	if subtype == 0:
 		player = Player( "Isaac", 0, 0, [], "", [], [], [] )
 	elif subtype == 1:
-		player = Player( "Magdalene", 0, 0, [], "", [], [], [] )
+		player = Player( "Magdalene", 1, 0, [], "", [], [], [] )
 	elif subtype == 2:
-		player = Player( "Cain", 0, 0, [], "", [], [], [] )
+		player = Player( "Cain", 2, 0, [], "", [], [], [] )
 	elif subtype == 3:
-		player = Player( "Judas", 0, 0, [], "", [], [], [] )
+		player = Player( "Judas", 3, 0, [], "", [], [], [] )
 	elif subtype == 4:
-		player = Player( "???", 0, 0, [], "", [], [], [] )
+		player = Player( "???", 4, 0, [], "", [], [], [] )
 	elif subtype == 5:
-		player = Player( "Eve", 0, 0, [], "", [], [], [] )
+		player = Player( "Eve", 5, 0, [], "", [], [], [] )
 	elif subtype == 6:
-		player = Player( "Samson", 0, 0, [], "", [], [], [] )
+		player = Player( "Samson", 6, 0, [], "", [], [], [] )
 	elif subtype == 7:
-		player = Player( "Azazel", 0, 0, [], "118", [], [], [] )
+		player = Player( "Azazel", 7, 0, [], "118", [], [], [] )
 	elif subtype == 8:
-		player = Player( "Lazarus", 0, 0, [], "", [], [], [] )
+		player = Player( "Lazarus", 8, 0, [], "", [], [], [] )
 	elif subtype == 9:
-		player = Player( "Eden", 0, 0, [], "", [], [], [] )
+		player = Player( "Eden", 9, 0, [], "", [], [], [] )
 	elif subtype == 10:
-		player = Player( "The Lost", 0, 0, [], "", [], [], [] )
+		player = Player( "The Lost", 10, 0, [], "", [], [], [] )
 	else:
-		player = Player( "Unknown", 0, 0, [], "", [], [], [] )
+		player = Player( "Unknown", 11, 0, [], "", [], [], [] )
 	return player
+
+def removeDuplicates(values):
+	output = []
+	seen = set()
+	for value in values:
+		if value not in seen:
+			output.append(value)
+			seen.add(value)
+	return output
 
 def debugLog(seedValues, player):
 	print "----------------------------------------"
@@ -65,6 +74,7 @@ def debugLog(seedValues, player):
 		print item
 	player.roomsEntered = sorted(set(player.roomsEntered))
 	print "Rooms Entered: " + str(len(player.roomsEntered))
+	print "Current Level: " + player.currentLevel
 
 while True:
 	regexValues = {
@@ -74,8 +84,7 @@ while True:
 		'newBoss': r'^(Boss )(\d{1,2})(.+?)$',
 		'newMiniBoss': r'(MiniBoss )(\d{1,2})(.+?)$',
 		'newPillAction': r'^(Action PillCard Triggered)$',
-		'newLevel': r'^(.{18})(stage \d{1,3}: )(.+?)$',
-		'newRoomEntered': r'^(Room )(\S{3,4})' #^(Room )(\d{1,2}.\d{1,2})(.+?)$
+		'newRoomEntered': r'^(Room )(\S{3,4})'
 	}
 	seedValues = []
 	logFile = open('log.txt', 'r')
@@ -87,7 +96,6 @@ while True:
 		newBossMatches = re.match(regexValues['newBoss'], line, re.M)
 		newMiniBossMatches = re.match(regexValues['newMiniBoss'], line, re.M)
 		newPillActionMatches = re.match(regexValues['newPillAction'], line, re.M)
-		newLevelMatches = re.match(regexValues['newLevel'], line, re.M)
 		newRoomEnteredMatches = re.match(regexValues['newRoomEntered'], line, re.M)
 
 		if newGameMatches:
@@ -103,12 +111,11 @@ while True:
 			player.miniBosses.append(newMiniBossMatches.group(2))	
 		if newPillActionMatches:
 			player.pillsUsed += 1
-		if newLevelMatches:
-			player.currentLevel = newLevelMatches.group(2) + newLevelMatches.group(3)
 		if newRoomEnteredMatches:
 			player.roomsEntered.append(newRoomEnteredMatches.group(2))
 
-	player.items = sorted(set(player.items)) #remove duplicates
+	player.items = removeDuplicates(player.items)
 	displayGraphics(player)
 	pygame.event.clear()
+	debugLog(seedValues, player)
 	logFile.close()

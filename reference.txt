@@ -1,3 +1,8 @@
+DMG Formula
+-----------
+Effective Damage = 3.5 * (1 + 1.2 * Basic Damage)1/2
+
+
 Bosses
 ---------------------
  1 Monstro
