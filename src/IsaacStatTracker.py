@@ -19,6 +19,7 @@ from ISTPlayer import Player
 from ISTGraphics import *
 import re
 import time
+import sys
 
 def createPlayer(subtype):
 	if subtype == 0:
@@ -87,8 +88,12 @@ while True:
 		'newRoomEntered': r'^(Room )(\S{3,4})'
 	}
 	seedValues = []
-	logFile = open('log.txt', 'r')
+	try:
+		logFile = open('log.txt', 'r')
+	except IOError:
+		sys.exit("log.txt does not exist")
 
+	player = None
 	for line in logFile:
 		newGameMatches = re.match(regexValues['newGame'], line, re.M)
 		newPlayerMatches = re.match(regexValues['newPlayer'], line, re.M)
@@ -114,8 +119,11 @@ while True:
 		if newRoomEnteredMatches:
 			player.roomsEntered.append(newRoomEnteredMatches.group(2))
 
-	player.items = removeDuplicates(player.items)
-	displayGraphics(player)
-	pygame.event.clear()
-	debugLog(seedValues, player)
+	if player != None:
+		player.items = removeDuplicates(player.items)
+		displayGraphics(player)
+		pygame.event.pump()
+		debugLog(seedValues, player)
+	else:
+		print "No Player"
 	logFile.close()

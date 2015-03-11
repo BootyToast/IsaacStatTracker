@@ -20,6 +20,7 @@ from pygame.locals import *
 import time
 import glob
 import re
+import sys
 
 currentBossesToDisplay = []
 currentItemsToDisplay = []
@@ -68,11 +69,12 @@ def collectFiles(player, itemsToDisplay, bossesToDisplay):
 def handleEvents():
 	events = pygame.event.get()
 	for event in events:
-		if event.type == QUIT:
+		if event.type == pygame.QUIT:
 			pygame.quit()
+			sys.exit()
 
 def displayGraphics(player):
-	pygame.event.clear()
+	pygame.event.pump()
 	itemsToDisplay = []
 	bossesToDisplay = []
 	global currentItemsToDisplay
